@@ -1,5 +1,3 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -63,6 +61,13 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Handle "Add to Cart" action
+              print('Add to Cart Pressed');
+            },
+          ),
           PopupMenuButton(
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               PopupMenuItem(
@@ -416,12 +421,12 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sell),
+            label: 'Sell',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -431,11 +436,17 @@ class _HomePageState extends State<HomePage> {
           });
 
           // Handle different options based on the selected index
-          if (_selectedIndex == 2) {
+          if (_selectedIndex == 1) {
             // Chat tab is selected, navigate to ChatOptionsPage
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ChatOptionsPage()),
+            );
+          } else if (_selectedIndex == 2) {
+            // "Sell" tab is selected, navigate to SellPage (you can replace this with your actual selling page)
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SellPage()),
             );
           }
         },
@@ -564,6 +575,20 @@ class ChatOptionsPage extends StatelessWidget {
             child: Text('Selling Chats'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SellPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sell'),
+      ),
+      body: Center(
+        child: Text('Your Sell Page Content Goes Here'),
       ),
     );
   }
