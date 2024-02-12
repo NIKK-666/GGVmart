@@ -403,7 +403,7 @@ class _HomePageState extends State<HomePage> {
                           imageUrl:
                               'https://images.unsplash.com/photo-1652497256500-e82ace47de6c?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                           title: 'Sports Equipments',
-                          description: 'Short description for Product 6',
+                          description: '',
                         ),
                       ),
                     ],
@@ -461,52 +461,71 @@ class AdCard extends StatelessWidget {
   final String title;
   final String description;
 
-  AdCard({required this.imageUrl, required this.title, required this.description});
+  AdCard({
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      message: description,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          margin: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.grey,
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the ad details page when the card is tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AdDetailsPage(
+              imageUrl: imageUrl,
+              title: title,
+              description: description,
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 120,
-                child: Stack(
-                  children: [
-                    Image.network(
-                      imageUrl,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        color: Colors.black.withOpacity(0.7),
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFfaf9f9),
+        );
+      },
+      child: Tooltip(
+        message: description,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 120,
+                  child: Stack(
+                    children: [
+                      Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          color: Colors.black.withOpacity(0.7),
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFfaf9f9),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -589,6 +608,61 @@ class SellPage extends StatelessWidget {
       ),
       body: Center(
         child: Text('Your Sell Page Content Goes Here'),
+      ),
+    );
+  }
+}
+
+class AdDetailsPage extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String description;
+
+  AdDetailsPage({
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Ad Details'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              imageUrl,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
