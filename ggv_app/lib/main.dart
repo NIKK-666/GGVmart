@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         color: Color(0xFFfafaff),
         child: ListView(
-          children: [
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -170,7 +170,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      print('See More Categories');
+                      // Redirect user to AllCategoriesPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AllCategoriesPage()),
+                      );
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
@@ -320,27 +325,11 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Ads',
+                        'Recommendations',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF0a100d),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          print('See More Ads');
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Text(
-                          'See More',
-                          style: TextStyle(
-                            color: Color(0xFF0a100d),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                       ),
                     ],
@@ -425,7 +414,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sell),
+            icon: Icon(Icons.sell_sharp),
             label: 'Sell',
           ),
         ],
@@ -663,6 +652,20 @@ class AdDetailsPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AllCategoriesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('All Categories'),
+      ),
+      body: Center(
+        child: Text('All Browsing Categories Here'),
       ),
     );
   }
